@@ -57,7 +57,26 @@ public class CountWords {
      * @return - результирующая строка
      */
     public String concatWords(File file) throws Exception {
-        return null;
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String str;
+        StringBuilder result = new StringBuilder();
+        while ((str = reader.readLine()) != null) {
+            if (str.trim().length() == 0) {
+                continue;
+            }
+            try {
+                Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                if (result.length() > 0) {
+                    result.append(" ");
+                }
+                result.append(str);
+            }
+        }
+        if (result.length() == 0) {
+            return null;
+        }
+        return result.toString();
     }
 
 }
