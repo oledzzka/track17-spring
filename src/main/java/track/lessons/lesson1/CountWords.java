@@ -1,6 +1,8 @@
 package track.lessons.lesson1;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 
 /**
  * Задание 1: Реализовать два метода
@@ -31,7 +33,19 @@ public class CountWords {
      * @return - целое число - сумма всех чисел из файла
      */
     public long countNumbers(File file) throws Exception {
-        return 0;
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String str;
+        long sum = 0;
+        while ((str = reader.readLine()) != null) {
+            try {
+                long num = Long.valueOf(str);
+                sum += num;
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        reader.close();
+        return sum;
     }
 
 
