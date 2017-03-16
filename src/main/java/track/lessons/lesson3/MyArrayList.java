@@ -51,13 +51,11 @@ class MyArrayList extends List {
             return array[size];
         }
         int [] tmp = new int [size - 1];
-        int tmpIter = 0;
-        for (int i = 0 ; i < size; i++) {
-            if (i == idx) {
-                continue;
-            }
-            tmp[tmpIter] = array[i];
-            tmpIter++;
+        if (idx == 0) {
+            System.arraycopy(array,1, tmp,0, (size - 1));
+        } else {
+            System.arraycopy(array,0, tmp, 0, idx);
+            System.arraycopy(array, (idx + 1), tmp, idx, (size - idx - 1));
         }
         int num = array[idx];
         size--;
