@@ -26,22 +26,57 @@ public class MyLinkedList extends List {
         }
     }
 
+    Node lastNode = null;
+    Node startNode = null;
+
+
     @Override
     void add(int item) {
+        if ( lastNode == null) {
+            lastNode = new Node(null, null, item);
+            startNode = lastNode;
+        } else {
+            Node node = new Node(lastNode, null, item);
+            lastNode.next = node;
+            lastNode = node;
+        }
+        size++;
     }
 
     @Override
     int remove(int idx) throws NoSuchElementException {
-        return 0;
+        if (idx < 0 || idx >= size) {
+            throw new NoSuchElementException();
+        }
+        Node node = startNode;
+        for (int i = 0; i < idx; i++) {
+            node = node.next;
+        }
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        } else {
+            startNode = node.next;
+        }
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        } else {
+            lastNode = node.prev;
+        }
+        size--;
+
+        return node.val;
     }
 
     @Override
     int get(int idx) throws NoSuchElementException {
-        return 0;
+        if (idx < 0 || idx >= size) {
+            throw new NoSuchElementException();
+        }
+        Node node = startNode;
+        for (int i = 0; i < idx; i++) {
+            node = node.next;
+        }
+        return node.val;
     }
 
-    @Override
-    int size() {
-        return 0;
-    }
 }
