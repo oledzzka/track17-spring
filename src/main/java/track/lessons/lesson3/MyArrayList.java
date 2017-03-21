@@ -11,8 +11,9 @@ import java.util.NoSuchElementException;
  */
 class MyArrayList extends List {
 
+    static final int DEFAULT_CAPACITY = 10;
 
-    private int realSize = 10;
+    private int realSize = DEFAULT_CAPACITY;
     private int [] array;
 
     MyArrayList() {
@@ -30,12 +31,10 @@ class MyArrayList extends List {
     @Override
     void add(int item) {
         if (realSize == size) {
-            float increase = (float) 1.5;
-            int [] tmp = new int[size];
+            realSize = size * 3 / 2;
+            int [] tmp = new int[realSize];
             System.arraycopy(array, 0, tmp, 0, size);
-            realSize = (int)(size * increase);
-            array = new int[realSize];
-            System.arraycopy(tmp, 0, array, 0, size);
+            array = tmp;
         }
         array[size] = item;
         size++;
@@ -50,16 +49,8 @@ class MyArrayList extends List {
             size--;
             return array[size];
         }
-        int [] tmp = new int [size - 1];
-        if (idx == 0) {
-            System.arraycopy(array,1, tmp,0, (size - 1));
-        } else {
-            System.arraycopy(array,0, tmp, 0, idx);
-            System.arraycopy(array, (idx + 1), tmp, idx, (size - idx - 1));
-        }
+        System.arraycopy(array, (idx + 1), array, idx, (--size - idx));
         int num = array[idx];
-        size--;
-        System.arraycopy(tmp, 0, array, 0, size);
         return num;
     }
 
