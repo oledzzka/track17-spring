@@ -34,4 +34,9 @@ public abstract class Message implements Serializable {
     public void setType(Type type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "type: " + getType() + " id: " + getId();
+    }
 }

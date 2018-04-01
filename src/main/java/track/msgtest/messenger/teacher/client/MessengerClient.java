@@ -1,6 +1,5 @@
 package track.msgtest.messenger.teacher.client;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -11,12 +10,10 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import track.msgtest.messenger.messages.Message;
-import track.msgtest.messenger.messages.TextMessage;
-import track.msgtest.messenger.messages.Type;
+import track.msgtest.messenger.messages.*;
 import track.msgtest.messenger.net.Protocol;
 import track.msgtest.messenger.net.ProtocolException;
-import track.msgtest.messenger.net.StringProtocol;
+import track.msgtest.messenger.net.JsonProtocol;
 
 
 /**
@@ -105,6 +102,18 @@ public class MessengerClient {
      */
     public void onMessage(Message msg) {
         log.info("Message received: {}", msg);
+        switch (msg.getType()) {
+            case MSG_STATUS:
+                StatusMessage statusMessage = (StatusMessage) msg;
+                System.out.println(statusMessage.getStatus());
+                break;
+            case MSG_INFO_RESULT:
+                InfoResultMessage infoResultMessage = (InfoResultMessage) msg;
+                System.out.println(infoResultMessage.getInformation());
+                break;
+            default:
+                log.error("Error type message {}", msg.getType());
+        }
     }
 
     /**
@@ -117,17 +126,30 @@ public class MessengerClient {
         String cmdType = tokens[0];
         switch (cmdType) {
             case "/login":
-                // TODO: реализация
+                if (tokens.length > 2) {
+                    String user = tokens[1];
+                    String passwd = tokens[2];
+                    LoginMessage loginMessage = new LoginMessage(user, passwd);
+                    send(loginMessage);
+                } else {
+                    log.error("Error login string {}", line);
+                }
+
                 break;
             case "/help":
-                // TODO: реализация
+                System.out.println("help");
                 break;
             case "/text":
                 // FIXME: пример реализации для простого текстового сообщения
-                TextMessage sendMessage = new TextMessage();
-                sendMessage.setType(Type.MSG_TEXT);
-                sendMessage.setText(tokens[1]);
-                send(sendMessage);
+                if (tokens.length > 1 ) {
+                    TextMessage sendMessage = new TextMessage();
+                    sendMessage.setType(Type.MSG_TEXT);
+                    sendMessage.setText(tokens[1]);
+                    send(sendMessage);
+                } else {
+                    log.error("Error text string {}", line);
+                }
+
                 break;
             // TODO: implement another types from wiki
 
@@ -150,7 +172,7 @@ public class MessengerClient {
         MessengerClient client = new MessengerClient();
         client.setHost("localhost");
         client.setPort(19000);
-        client.setProtocol(new StringProtocol());
+        client.setProtocol(new JsonProtocol());
 
         try {
             client.initSocket();

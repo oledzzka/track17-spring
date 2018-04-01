@@ -1,0 +1,17 @@
+2017-06-12 23:13:35 INFO  JsonProtocol:29 - decoded: {id=null, senderId=nul2017-06-12 23:13:56 INFO  MessengerClient:125 - Tokens: [/login, dsa, dsa]
+2017-06-12 23:13:56 INFO  MessengerClient:165 - LoginMessage{name='dsa', pass='dsa'}
+2017-06-12 23:13:56 INFO  JsonProtocol:60 - encoded: {"id":null,"senderId":null,"type":"MSG_LOGIN","name":"dsa","pass":"dsa"}
+2017-06-12 23:13:56 INFO  JsonProtocol:29 - decoded: {id=null, senderId=null, type=MSG_STATUS, status=User{name='dsa', pass='dsa'}}
+2017-06-12 23:13:56 INFO  MessengerClient:104 - Message received: type: MSG_STATUS id: null
+2017-06-12 23:14:05 INFO  MessengerClient:125 - Tokens: [/text, sas]
+2017-06-12 23:14:05 INFO  MessengerClient:165 - TextMessage{text='sas'}
+2017-06-12 23:14:05 INFO2017-06-12 23:14:05 INFO  JsonProtocol:29 - decoded: {id=null, senderId=null, type=MSG_T2017-06-12 23:14:05 INFO  JsonProtocol:29 - decoded: {id=null, senderId=null, type=MSG_STATUS, status=Доставлено}
+2017-06-12 23:14:05 INFO  MessengerClient:104 - Message received: type: MSG_STATUS id: null
+":"M2017-06-12 23:14:05 INFO  JsonProtocol:29 - decoded: {id=null, senderId=null, type=MSG_STATUS, status=sas}
+2017-06-12 23:14:05 INFO  MessengerClient:104 - Message received: type: MSG_STATUS id: null
+2017-06-12 23:15:58 INFO  MessengerClient:125 - Tokens: []
+2017-06-12 23:15:58 ERROR MessengerClient:157 - Invalid input: 
+2017-06-12 23:16:03 INFO  MessengerClient:125 - Tokens: [/info]
+2017-06-12 23:16:03 ERROR MessengerClient:157 - Invalid input: /info
+2017-06-12 23:16:10 INFO  MessengerClient:125 - Tokens: [/info, dsa]
+2017-06-12 23:16:10 ERROR MessengerClient:157 - Invalid input: /info dsa
